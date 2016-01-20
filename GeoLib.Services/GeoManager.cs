@@ -58,7 +58,9 @@ namespace GeoLib.Services
             {
                 zipCodeData = new ZipCodeData
                 {
-                    City = zipCodeEntity.City
+                    City = zipCodeEntity.City,
+                    State = zipCodeEntity.State.Abbreviation,
+                    ZipCode = zipCodeEntity.Zip
                 };
             }
             return zipCodeData;
@@ -73,15 +75,10 @@ namespace GeoLib.Services
             var zips = zipCodeRepository.GetByState(state);
             if(zips != null)
             {
-                foreach (ZipCode zipCode in zips)
+                zipCodeData.AddRange(zips.Select(zipCode => new ZipCodeData()
                 {
-                    zipCodeData.Add(new ZipCodeData()
-                    {
-                        City = zipCode.City,
-                        State = zipCode.State.Abbreviation,
-                        ZipCode = zipCode.Zip
-                    });
-                }
+                    City = zipCode.City, State = zipCode.State.Abbreviation, ZipCode = zipCode.Zip
+                }));
             }
             return zipCodeData;
         }
