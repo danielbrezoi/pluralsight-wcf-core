@@ -11,5 +11,7 @@ namespace GeoLib.Data
     {
         State Get(string abbrev);
         IEnumerable<State> Get(bool primaryOnly);
+
+        //public static implicit operator IStateRepository(IStateRepository v);
     }
 }
